@@ -1,5 +1,67 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <title>Moe</title>
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .blue-archive-live2d-bg {
+            background-image: url('assets/img/blue_archive_live2d.jpg') !important;
+            background-size: contain;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-fade {
+            animation: fade 1s ease-in-out;
+        }
+    </style>
+</head>
+
 <body>
-<h1>test babang</h1>
+    <div
+        class="flex flex-col w-screen h-screen items-center justify-center from-slate-700 to-gray-900 bg-gradient-to-br">
+        <div class="flex flex-col items-center animate-fade">
+            <span class="text-4xl text-white">Welcome</span>
+            <div class="flex flex-row">
+                <div class="flex flex-col items-center cursor-pointer hover:shadow-2xl transition-all p-4 m-8"
+                    id="live2d">
+                    <div class="w-48 h-48 bg-slate-700 bg-opacity-40 shadow-xl rounded-md p-4 m-4">
+                        <div class="blue-archive-live2d-bg w-full h-full">
+
+                        </div>
+                    </div>
+                    <div class="text-white text-2xl">
+                        <span>Blue Archive Live2D</span>
+                    </div>
+                </div>
+                <!-- <div class="w-48 h-48 bg-slate-700 bg-opacity-40 shadow-xl rounded-md p-4 m-8">
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('live2d').addEventListener('click', function () {
+            window.location.href = 'blue-archive-spine/';
+        });
+    </script>
 </body>
+
 </html>
