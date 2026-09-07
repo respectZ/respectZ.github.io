@@ -1,67 +1,1406 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Svdex — Portfolio</title>
+    <meta
+      name="description"
+      content="Svdex — Minecraft addon developer & web creator. Addons, projects, about, contact. Single-viewport portfolio."
+    />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-    <title>Moe</title>
-    <style>
-        body {
-            font-family: 'Raleway', sans-serif;
-        }
-
-        .blue-archive-live2d-bg {
-            background-image: url('assets/img/blue_archive_live2d.jpg') !important;
-            background-size: contain;
-        }
-
-        @keyframes fade {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0px);
-            }
-        }
-
-        .animate-fade {
-            animation: fade 1s ease-in-out;
-        }
-    </style>
-</head>
-
-<body>
-    <div
-        class="flex flex-col w-screen h-screen items-center justify-center from-slate-700 to-gray-900 bg-gradient-to-br">
-        <div class="flex flex-col items-center animate-fade">
-            <span class="text-4xl text-white">Welcome</span>
-            <div class="flex flex-row">
-                <div class="flex flex-col items-center cursor-pointer hover:shadow-2xl transition-all p-4 m-8"
-                    id="live2d">
-                    <div class="w-48 h-48 bg-slate-700 bg-opacity-40 shadow-xl rounded-md p-4 m-4">
-                        <div class="blue-archive-live2d-bg w-full h-full">
-
-                        </div>
-                    </div>
-                    <div class="text-white text-2xl">
-                        <span>Blue Archive Live2D</span>
-                    </div>
-                </div>
-                <!-- <div class="w-48 h-48 bg-slate-700 bg-opacity-40 shadow-xl rounded-md p-4 m-8">
-                </div> -->
-            </div>
-        </div>
-    </div>
     <script>
-        document.getElementById('live2d').addEventListener('click', function () {
-            window.location.href = 'https://ba.svdex.moe';
-        });
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ink: "#0a0a0b",
+              bone: "#f2efe6",
+              acid: "#e4ff3f",
+              smoke: "#8a8a90",
+            },
+            fontFamily: {
+              grotesk: [
+                '"Space Grotesk"',
+                '"Zen Kaku Gothic New"',
+                "sans-serif",
+              ],
+              serifjp: ['"Noto Serif JP"', "serif"],
+              gothic: ['"Zen Kaku Gothic New"', "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
-</body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+JP:wght@600;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        height: 100dvh;
+        overflow: hidden;
+        background: #0a0a0b;
+      }
+      body {
+        font-family: "Space Grotesk", "Zen Kaku Gothic New", sans-serif;
+      }
+      ::selection {
+        background: #e4ff3f;
+        color: #0a0a0b;
+      }
 
+      .vertical {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        letter-spacing: 0.35em;
+      }
+
+      .outline-num {
+        -webkit-text-stroke: 1px rgba(242, 239, 230, 0.28);
+        color: transparent;
+        line-height: 0.8;
+        user-select: none;
+      }
+
+      .noise::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        pointer-events: none;
+        opacity: 0.07;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      .scanlines::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        pointer-events: none;
+        opacity: 0.05;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent 0 2px,
+          #fff 2px 3px
+        );
+      }
+
+      .panel {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transform: translateY(14px);
+        pointer-events: none;
+        transition:
+          opacity 0.45s ease,
+          transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .panel.active {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
+
+      @keyframes glitchIn {
+        0% {
+          clip-path: inset(0 0 85% 0);
+          transform: translate(-6px, 4px);
+        }
+        40% {
+          clip-path: inset(30% 0 30% 0);
+          transform: translate(5px, -3px);
+        }
+        70% {
+          clip-path: inset(60% 0 5% 0);
+          transform: translate(-3px, 2px);
+        }
+        100% {
+          clip-path: inset(0 0 0 0);
+          transform: none;
+        }
+      }
+      .panel.active .glitch {
+        animation: glitchIn 0.5s steps(4) 1;
+      }
+
+      .navbtn {
+        transition: all 0.25s ease;
+      }
+      .navbtn.active {
+        background: #f2efe6;
+        color: #0a0a0b;
+      }
+      .navbtn:not(.active):hover {
+        background: rgba(242, 239, 230, 0.12);
+      }
+
+      .card {
+        transition:
+          transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+          background 0.25s,
+          color 0.25s;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+      }
+      .card:hover .card-arrow {
+        transform: translate(3px, -3px);
+        background: #e4ff3f;
+        color: #0a0a0b;
+        border-color: #e4ff3f;
+      }
+      .card-arrow {
+        transition: all 0.25s ease;
+      }
+
+      .thumb-pattern-0 {
+        background:
+          radial-gradient(circle at 20% 20%, #e4ff3f 0, transparent 45%),
+          linear-gradient(135deg, #1c1c22, #0a0a0b);
+      }
+      .thumb-pattern-1 {
+        background:
+          repeating-linear-gradient(
+            45deg,
+            rgba(228, 255, 63, 0.14) 0 6px,
+            transparent 6px 12px
+          ),
+          linear-gradient(135deg, #23232c, #0a0a0b);
+      }
+      .thumb-pattern-2 {
+        background:
+          radial-gradient(
+            circle at 80% 90%,
+            rgba(228, 255, 63, 0.35) 0,
+            transparent 50%
+          ),
+          linear-gradient(135deg, #191920, #0a0a0b);
+      }
+      .thumb-pattern-3 {
+        background:
+          repeating-linear-gradient(
+            -45deg,
+            rgba(242, 239, 230, 0.08) 0 2px,
+            transparent 2px 10px
+          ),
+          linear-gradient(135deg, #20202a, #0a0a0b);
+      }
+      .thumb-pattern-4 {
+        background: conic-gradient(
+          from 180deg at 50% 50%,
+          #1a1a21,
+          #2b2b15,
+          #1a1a21
+        );
+      }
+      .thumb-pattern-5 {
+        background: linear-gradient(
+          160deg,
+          #26262e 0%,
+          #101014 60%,
+          #1d2005 100%
+        );
+      }
+
+      .thin-scroll::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      .thin-scroll::-webkit-scrollbar-thumb {
+        background: rgba(242, 239, 230, 0.25);
+      }
+      .thin-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      @keyframes shimmer {
+        from {
+          background-position: 200% 0;
+        }
+        to {
+          background-position: -200% 0;
+        }
+      }
+      .skeleton {
+        background: linear-gradient(
+          110deg,
+          rgba(242, 239, 230, 0.05) 40%,
+          rgba(242, 239, 230, 0.13) 50%,
+          rgba(242, 239, 230, 0.05) 60%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.2s linear infinite;
+      }
+
+      .clamp2,
+      .addon-desc {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .clamp2 {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+      .addon-desc {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+      @media (min-width: 768px) {
+        .addon-desc {
+          -webkit-line-clamp: 3;
+          line-clamp: 3;
+        }
+      }
+      @media (max-height: 620px) {
+        .addon-desc {
+          -webkit-line-clamp: 1;
+          line-clamp: 1;
+        }
+      }
+
+      @media (max-width: 639px) and (max-height: 600px) {
+        .addon-desc,
+        .addon-tags {
+          display: none;
+        }
+      }
+
+      #loader {
+        transition:
+          opacity 0.6s ease,
+          visibility 0.6s;
+      }
+      #loader.done {
+        opacity: 0;
+        visibility: hidden;
+      }
+      @keyframes loadbar {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      .pill.active {
+        background: #e4ff3f;
+        color: #0a0a0b;
+        border-color: #e4ff3f;
+      }
+      input:focus {
+        outline: none;
+      }
+    </style>
+  </head>
+
+  <body
+    class="noise scanlines text-bone bg-ink h-[100dvh] w-screen overflow-hidden antialiased"
+  >
+    <div
+      id="loader"
+      class="fixed inset-0 z-[100] bg-ink flex flex-col items-center justify-center gap-4"
+    >
+      <div class="font-gothic text-xs tracking-[.5em] text-smoke">
+        読み込み中 — LOADING
+      </div>
+      <div class="text-3xl md:text-5xl font-bold tracking-tight">
+        SVD<span class="text-acid">E</span>X
+      </div>
+      <div class="w-48 h-px bg-white/15 overflow-hidden">
+        <div
+          class="h-full bg-acid"
+          style="animation: loadbar 1s ease forwards"
+        ></div>
+      </div>
+    </div>
+
+    <div
+      id="bgIndex"
+      class="outline-num fixed -bottom-6 md:bottom-[-3rem] right-2 md:right-8 text-[38vw] md:text-[24vw] font-bold z-0"
+    >
+      01
+    </div>
+    <div
+      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[22vw] font-serifjp font-black text-white/[.025] whitespace-nowrap pointer-events-none z-0 select-none"
+    >
+      作品集
+    </div>
+
+    <aside
+      class="hidden lg:flex fixed left-0 top-0 bottom-0 w-12 z-40 border-r border-white/10 flex-col items-center justify-between py-6 bg-ink/80 backdrop-blur"
+    >
+      <span class="vertical font-gothic text-[11px] text-smoke"
+        >ポートフォリオ — PORTFOLIO</span
+      >
+      <span class="w-px flex-1 bg-white/10 my-4"></span>
+      <span class="vertical text-[11px] tracking-[.35em] text-bone/70"
+        >Svdex</span
+      >
+    </aside>
+    <aside
+      class="hidden lg:flex fixed right-0 top-0 bottom-0 w-12 z-40 border-l border-white/10 flex-col items-center justify-between py-6 bg-ink/80 backdrop-blur"
+    >
+      <span id="railSection" class="vertical font-gothic text-[11px] text-acid"
+        >自己紹介 — ABOUT</span
+      >
+      <span class="w-px flex-1 bg-white/10 my-4"></span>
+    </aside>
+
+    <div class="relative z-10 h-[100dvh] flex flex-col lg:px-12">
+      <header
+        class="shrink-0 flex items-center justify-between gap-3 px-4 md:px-8 pt-4 md:pt-6"
+      >
+        <a href="#about" data-nav="about" class="flex items-center gap-3 group">
+          <div
+            class="w-9 h-9 border border-bone/40 grid place-items-center font-bold text-sm group-hover:bg-acid group-hover:text-ink group-hover:border-acid transition-all"
+          >
+            S<span class="text-acid group-hover:text-ink">_</span>X
+          </div>
+          <div class="leading-none">
+            <div class="font-bold tracking-tight text-lg">Svdex</div>
+            <div class="font-gothic text-[10px] tracking-[.3em] text-smoke">
+              マインクラフト — WEB — 創作
+            </div>
+          </div>
+        </a>
+        <nav
+          class="flex items-center gap-1 md:gap-2 text-[11px] md:text-xs font-bold tracking-[.15em]"
+        >
+          <button
+            data-nav="about"
+            class="navbtn active px-2.5 md:px-4 py-2 border border-white/20"
+          >
+            <span class="text-acid/70 mr-1 nav-num">01</span
+            ><span class="navbtn-label">ABOUT</span>
+          </button>
+          <button
+            data-nav="addons"
+            class="navbtn px-2.5 md:px-4 py-2 border border-white/20"
+          >
+            <span class="text-acid/70 mr-1 nav-num">02</span
+            ><span class="navbtn-label">ADDONS</span>
+          </button>
+          <button
+            data-nav="other"
+            class="navbtn px-2.5 md:px-4 py-2 border border-white/20"
+          >
+            <span class="text-acid/70 mr-1 nav-num">03</span
+            ><span class="navbtn-label">OTHER</span>
+          </button>
+          <button
+            data-nav="contact"
+            class="navbtn px-2.5 md:px-4 py-2 border border-white/20"
+          >
+            <span class="text-acid/70 mr-1 nav-num">04</span
+            ><span class="navbtn-label">CONTACT</span>
+          </button>
+        </nav>
+      </header>
+
+      <div class="shrink-0 px-4 md:px-8 mt-3 md:mt-4 flex items-center gap-3">
+        <span
+          id="crumb"
+          class="font-gothic text-[11px] tracking-[.3em] text-acid"
+          >01 — 自己紹介 / STATEMENT</span
+        >
+        <span class="flex-1 h-px bg-white/10"></span>
+      </div>
+
+      <main
+        id="stage"
+        class="relative flex-1 min-h-0 px-4 md:px-8 mt-3 md:mt-4"
+      >
+        <section data-panel="about" class="panel active">
+          <div
+            class="glitch h-full min-h-0 grid md:grid-cols-[1.15fr_.85fr] gap-4 md:gap-8 items-stretch"
+          >
+            <div class="min-h-0 flex flex-col justify-center">
+              <p
+                class="font-gothic text-[11px] tracking-[.4em] text-smoke mb-2"
+              >
+                人工的でも、創造は無限だ — STATEMENT
+              </p>
+              <h1
+                class="font-black leading-[.95] tracking-tight text-[11vw] md:text-[4.6vw]"
+              >
+                I BUILD<br />WORLDS<span class="text-acid">.</span><br />
+                <span class="font-serifjp font-black">遊びを、拡張せよ。</span>
+              </h1>
+              <p
+                id="aboutBio"
+                class="mt-4 max-w-xl text-sm md:text-[15px] leading-relaxed text-bone/80"
+              ></p>
+              <div class="mt-4 flex flex-wrap items-center gap-2">
+                <span class="text-[10px] tracking-[.3em] text-smoke mr-1"
+                  >STATUS:</span
+                >
+                <span
+                  class="text-[11px] font-bold px-3 py-1 border border-acid/60 text-acid rounded-full"
+                  >● AVAILABLE FOR COLLAB</span
+                >
+                <span
+                  class="text-[11px] px-3 py-1 border border-white/15 text-bone/70 rounded-full"
+                  >REMOTE / WORLDWIDE</span
+                >
+                <span
+                  class="text-[11px] px-3 py-1 border border-white/15 text-bone/70 rounded-full"
+                  >◷ <span id="aboutClock">--:--</span> UTC+7</span
+                >
+              </div>
+              <div class="mt-5">
+                <div class="text-[10px] tracking-[.3em] text-smoke mb-2">
+                  SKILLS — 技術
+                </div>
+                <div id="skillRow" class="flex flex-wrap gap-2"></div>
+              </div>
+              <div class="mt-5 flex flex-wrap gap-3">
+                <button
+                  data-nav="addons"
+                  class="px-6 py-3 bg-bone text-ink text-xs font-bold tracking-[.2em] hover:bg-acid transition-colors"
+                >
+                  VIEW ADDONS →
+                </button>
+                <button
+                  data-nav="contact"
+                  class="px-6 py-3 border border-white/25 text-xs font-bold tracking-[.2em] hover:border-acid hover:text-acid transition-colors"
+                >
+                  CONTACT →
+                </button>
+              </div>
+            </div>
+            <div
+              class="min-h-0 hidden md:flex flex-col border border-white/12 bg-white/[.03] backdrop-blur-sm"
+            >
+              <div
+                class="px-5 py-3 border-b border-white/10 flex items-center justify-between"
+              >
+                <span class="text-[11px] tracking-[.3em] text-smoke"
+                  >WORK HISTORY — 経歴</span
+                >
+                <span class="text-[11px] text-acid">履歴書</span>
+              </div>
+              <div
+                id="historyList"
+                class="thin-scroll flex-1 min-h-0 overflow-y-auto divide-y divide-white/8"
+              ></div>
+              <div
+                class="px-5 py-3 border-t border-white/10 grid grid-cols-3 text-center"
+              >
+                <div>
+                  <div id="statAddons" class="text-2xl font-bold">–</div>
+                  <div class="text-[10px] tracking-[.25em] text-smoke">
+                    ADDONS
+                  </div>
+                </div>
+                <div class="border-x border-white/10">
+                  <div class="text-2xl font-bold">∞</div>
+                  <div class="text-[10px] tracking-[.25em] text-smoke">
+                    CURIOSITY
+                  </div>
+                </div>
+                <div>
+                  <div id="statProjects" class="text-2xl font-bold">–</div>
+                  <div class="text-[10px] tracking-[.25em] text-smoke">
+                    PROJECTS
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="md:hidden -mt-1 flex gap-2 overflow-x-auto thin-scroll pb-1"
+              id="historyRowMobile"
+            ></div>
+          </div>
+        </section>
+
+        <section data-panel="addons" class="panel">
+          <div class="glitch h-full min-h-0 flex flex-col">
+            <div
+              class="shrink-0 flex flex-col md:flex-row md:items-end gap-3 md:gap-6"
+            >
+              <div>
+                <h2 class="text-3xl md:text-5xl font-black tracking-tight">
+                  MINECRAFT<br class="md:hidden" />
+                  ADDONS <span class="font-serifjp">作品</span>
+                </h2>
+                <p class="text-xs md:text-sm text-bone/60 mt-1">
+                  Filter by studio, search by name.
+                </p>
+              </div>
+              <div class="flex-1"></div>
+              <div class="flex items-center gap-2">
+                <div
+                  class="flex items-center gap-2 border border-white/20 px-3 py-2 bg-white/[.03] w-full md:w-64"
+                >
+                  <span class="text-smoke text-sm">⌕</span>
+                  <input
+                    id="addonSearch"
+                    type="text"
+                    placeholder="SEARCH — 検索…"
+                    class="bg-transparent text-sm w-full placeholder:text-smoke/70"
+                  />
+                </div>
+                <div
+                  id="addonCount"
+                  class="shrink-0 text-[11px] tracking-[.2em] border border-white/20 px-3 py-2.5 text-smoke"
+                >
+                  0 / 0
+                </div>
+              </div>
+            </div>
+            <div
+              id="studioPills"
+              class="shrink-0 flex gap-2 mt-3 overflow-x-auto thin-scroll pb-1"
+            ></div>
+            <div
+              id="addonGrid"
+              class="mt-3 flex-1 min-h-0 overflow-hidden grid sm:grid-cols-2 xl:grid-cols-3 gap-3 content-start auto-rows-fr"
+            ></div>
+            <div
+              id="addonPager"
+              class="shrink-0 flex items-center gap-2 mt-2 min-h-[2rem]"
+            ></div>
+          </div>
+        </section>
+
+        <section data-panel="other" class="panel">
+          <div class="glitch h-full min-h-0 flex flex-col justify-start pt-1">
+            <h2 class="text-3xl md:text-5xl font-black tracking-tight shrink-0">
+              OTHER PROJECTS <span class="font-serifjp">その他</span>
+            </h2>
+            <p class="text-xs md:text-sm text-bone/60 mt-1 mb-4 shrink-0">
+              Web experiments & tools.
+            </p>
+            <a
+              href="https://ba.svdex.moe"
+              target="_blank"
+              rel="noopener"
+              class="card group border border-white/15 bg-white/[.03] flex flex-row overflow-hidden shrink-0"
+            >
+              <div
+                class="relative w-24 sm:w-32 md:w-44 shrink-0 overflow-hidden bg-black/40 min-h-[104px]"
+              >
+                <img
+                  src="assets/img/blue_archive_live2d.jpg"
+                  alt="Blue Archive Live2D"
+                  class="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                  onerror="this.style.display = 'none'"
+                />
+              </div>
+              <div
+                class="p-3 md:p-4 flex-1 min-w-0 min-h-0 overflow-hidden flex flex-col justify-center"
+              >
+                <div class="flex items-start justify-between gap-2">
+                  <h3
+                    class="font-bold text-base md:text-lg leading-tight clamp2 min-w-0 break-words"
+                  >
+                    Blue Archive Live2D Viewer
+                  </h3>
+                  <span
+                    class="card-arrow shrink-0 w-8 h-8 grid place-items-center border border-white/25"
+                    >↗</span
+                  >
+                </div>
+                <p class="addon-desc text-xs text-bone/60 mt-1 leading-relaxed">
+                  Interactive Live2D showcase —
+                  <span class="text-bone">ba.svdex.moe</span>. Smooth,
+                  lightweight, fan-made viewer experience.
+                </p>
+                <div
+                  class="mt-2 flex flex-wrap gap-2 text-[10px] font-bold tracking-widest overflow-hidden"
+                >
+                  <span class="px-2 py-1 border border-white/15 text-bone/70"
+                    >WEB</span
+                  ><span class="px-2 py-1 border border-white/15 text-bone/70"
+                    >LIVE2D</span
+                  ><span class="px-2 py-1 border border-acid/50 text-acid"
+                    >LIVE ↗</span
+                  ><span
+                    id="flagshipStars"
+                    class="px-2 py-1 border border-white/15 text-smoke"
+                    >★ …</span
+                  >
+                </div>
+              </div>
+            </a>
+            <div
+              id="otherGrid"
+              class="mt-3 flex-1 min-h-0 overflow-hidden grid sm:grid-cols-2 gap-3"
+            ></div>
+            <div
+              id="otherPager"
+              class="shrink-0 flex items-center gap-2 mt-2 min-h-[2rem]"
+            ></div>
+          </div>
+        </section>
+
+        <section data-panel="contact" class="panel">
+          <div
+            class="glitch h-full min-h-0 grid md:grid-cols-[1fr_.9fr] gap-4 md:gap-10 items-center"
+          >
+            <div>
+              <p class="font-gothic text-[11px] tracking-[.4em] text-smoke">
+                連絡先 — GET IN TOUCH
+              </p>
+              <h2
+                class="font-black tracking-tight leading-[.95] text-[12vw] md:text-[4.2vw] mt-1"
+              >
+                LET'S<br />CREATE<span class="text-acid">.</span><br /><span
+                  class="font-serifjp"
+                  >話そう。</span
+                >
+              </h2>
+              <p class="text-sm text-bone/70 mt-3 max-w-md leading-relaxed">
+                Addon collabs, commissions, bug reports, or just to say hi — the
+                fastest way is email or Discord. GitHub for code.
+              </p>
+              <div
+                class="mt-4 flex items-center gap-2 text-[11px] tracking-[.25em] text-smoke"
+              >
+                <span class="w-2 h-2 rounded-full bg-acid animate-pulse"></span
+                >AVG. REPLY — 24H以内
+              </div>
+            </div>
+            <div
+              id="contactList"
+              class="flex flex-col gap-3 min-h-0 overflow-y-auto thin-scroll"
+            ></div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="shrink-0 mt-3 md:mt-4 border-t border-white/10">
+        <div
+          class="px-4 md:px-8 py-2.5 flex items-center gap-3 text-[10px] md:text-[11px] tracking-[.2em] text-smoke"
+        >
+          <span>@ 2026 Svdex</span>
+          <span class="flex-1"></span>
+          <span class="hidden md:inline text-bone/50"
+            >[1–4] SWITCH — [←→] MOVE</span
+          >
+          <span class="text-bone/70"
+            ><span class="text-smoke">UTC+7</span>
+            <span id="clock">00:00:00</span></span
+          >
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const CONFIG = {
+        penName: "Svdex",
+        alias: "Moe / Svdex",
+        role: "Minecraft Addon Developer & Web Creator",
+        bio: "I'm Svdex — I make Bedrock addons and the tools around them, and I love reverse-engineering how things work.",
+        skills: [
+          "Minecraft Bedrock Addon Development",
+          "GameTest / Script API",
+          "Molang",
+          "JavaScript / TypeScript",
+          "Reverse Engineering",
+          "SCM (Git)",
+        ],
+        history: [
+          {
+            period: "2024 — PRESENT",
+            title: "Kubo Studios — Lead Developer",
+            desc: "Leading Bedrock addon development at the studio.",
+          },
+          {
+            period: "2021 — 2024",
+            title: "Kubo Studios — Member, Developer",
+            desc: "Studio member focused on Bedrock addon development.",
+          },
+        ],
+        contacts: [
+          {
+            label: "GITHUB",
+            sub: "code / releases",
+            value: "github.com/respectZ",
+            href: "https://github.com/respectZ",
+            jp: "コード",
+          },
+          {
+            label: "EMAIL",
+            sub: "fastest — commissions",
+            value: "renixiel@gmail.com",
+            href: "mailto:renixiel@gmail.com",
+            jp: "メール",
+          },
+          {
+            label: "DISCORD",
+            sub: "chat / collab",
+            value: "@svdex",
+            href: "https://discord.com/users/svdex",
+            jp: "雑談",
+          },
+        ],
+      };
+
+      let MARKETPLACE_ITEMS = [];
+      const ADDONS_DATA = [];
+      const allAddons = () => [...MARKETPLACE_ITEMS, ...ADDONS_DATA];
+
+      const PF_API = "https://20CA2.playfabapi.com";
+      const UUID_RE =
+        /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+      const pfPost = async (path, body, headers = {}) => {
+        const r = await fetch(PF_API + path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", ...headers },
+          body: JSON.stringify(body),
+        });
+        const j = await r.json().catch(() => null);
+        if (!r.ok) throw new Error(`${path} → ${r.status}`);
+        return j.data;
+      };
+      const pfDeviceId = () => {
+        let id = "";
+        try {
+          id = localStorage.getItem("mp_device_id") || "";
+        } catch {}
+        if (!id) {
+          id = "vmc-" + Math.random().toString(36).slice(2, 14);
+          try {
+            localStorage.setItem("mp_device_id", id);
+          } catch {}
+        }
+        return id;
+      };
+      const pfText = (d) =>
+        d?.NEUTRAL ||
+        d?.neutral ||
+        d?.["en-US"] ||
+        Object.values(d || {})[0] ||
+        "";
+      const pfCleanTags = (tags) => [
+        ...new Set(
+          (tags || [])
+            .filter(
+              (t) => typeof t === "string" && !UUID_RE.test(t) && t !== "3P",
+            )
+            .map((t) =>
+              t
+                .replace(/^tag\./, "")
+                .replace(/[_.]+/g, " ")
+                .trim(),
+            )
+            .filter(Boolean),
+        ),
+      ];
+      function pfNormalize(item, entry) {
+        const imgs = item.Images || [];
+        const thumb =
+          imgs.find((i) => /^thumbnail$/i.test(i.Tag || "")) ||
+          imgs.find((i) => /^packicon$/i.test(i.Tag || "")) ||
+          imgs[0] ||
+          {};
+        const creator =
+          item.DisplayProperties?.creatorName || entry.studio || "Marketplace";
+        const slug = creator
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/^-|-$/g, "");
+        return {
+          name: pfText(item.Title),
+          studio: creator,
+          link:
+            entry.url ||
+            `https://www.minecraft.net/en-us/marketplace/pdp/${slug}/${item.Id}`,
+          desc: pfText(item.Description).slice(0, 600),
+          tags: pfCleanTags(item.Tags).slice(0, 3),
+          img: thumb.Url || "",
+          rating: null,
+          _id: item.Id,
+        };
+      }
+      async function loadLive(entries) {
+        const { SessionTicket, PlayFabId } = await pfPost(
+          "/Client/LoginWithIOSDeviceID",
+          {
+            CreateAccount: true,
+            TitleId: "20CA2",
+            DeviceId: pfDeviceId(),
+            OS: "iOS",
+          },
+        );
+        const tok = await pfPost(
+          "/Authentication/GetEntityToken",
+          { Entity: { Id: PlayFabId, Type: "master_player_account" } },
+          { "X-Authorization": SessionTicket },
+        );
+        const et = tok.EntityToken;
+        const data = await pfPost(
+          "/Catalog/GetItems",
+          { Ids: entries.map((e) => e.id), Expand: "Images" },
+          { "X-EntityToken": et },
+        );
+        const byId = new Map((data.Items || []).map((it) => [it.Id, it]));
+        const out = [];
+        for (const e of entries) {
+          const raw = byId.get(e.id);
+          if (!raw) continue;
+          out.push(pfNormalize(raw, e));
+        }
+        await Promise.all(
+          out.map(async (n) => {
+            try {
+              const s = await pfPost(
+                "/Catalog/GetItemReviewSummary",
+                { Id: n._id },
+                { "X-EntityToken": et },
+              );
+              const r = s?.Rating || {};
+              if (r.TotalCount > 0)
+                n.rating = {
+                  avg: Math.round(r.Average * 10) / 10,
+                  count: r.TotalCount,
+                };
+            } catch {}
+          }),
+        );
+        return out;
+      }
+      function parseIdEntries(ids) {
+        return (ids || [])
+          .map((x) => {
+            const o = typeof x === "string" ? { raw: x } : x;
+            const raw = o.url || o.id || o.raw || "";
+            return {
+              id: (raw.match(UUID_RE) || [])[0] || "",
+              url: /^https?:\/\//i.test(raw) ? raw : o.url || "",
+              studio: o.studio || "",
+            };
+          })
+          .filter((e) => e.id);
+      }
+      async function loadMarketplace() {
+        addonPage = 1;
+        addonPageSize = defaultPageSize();
+        renderSkeletons();
+        renderPills();
+        try {
+          const ids = await (
+            await fetch("assets/data/marketplace-ids.json", {
+              cache: "no-store",
+            })
+          ).json();
+          const entries = parseIdEntries(ids);
+          if (!entries.length) throw new Error("no ids");
+          MARKETPLACE_ITEMS = await loadLive(entries);
+          if (!MARKETPLACE_ITEMS.length)
+            throw new Error("empty catalog answer");
+        } catch {
+          MARKETPLACE_ITEMS = [];
+        }
+        renderAbout();
+        renderPills();
+        if (!allAddons().length) {
+          $("#addonGrid").innerHTML =
+            `<div class="col-span-full border border-dashed border-white/20 p-10 text-center text-smoke">
+      <div class="text-3xl font-black text-white/15 mb-2">接続失敗</div>
+      Couldn't reach PlayFab. Check your connection and reopen this tab.
+    </div>`;
+          $("#addonPager").innerHTML = "";
+          return;
+        }
+        renderAddons();
+      }
+
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+      const SECTIONS = {
+        about: {
+          num: "01",
+          jp: "自己紹介 — ABOUT",
+          en: "01 — 自己紹介 / STATEMENT",
+        },
+        addons: { num: "02", jp: "作品 — ADDONS", en: "02 — 作品 / PRODUCT" },
+        other: {
+          num: "03",
+          jp: "その他 — OTHER",
+          en: "03 — その他 / CONTENTS",
+        },
+        contact: {
+          num: "04",
+          jp: "連絡先 — CONTACT",
+          en: "04 — 連絡先 / CONTACT",
+        },
+      };
+      let activeStudio = "ALL";
+
+      function initials(name) {
+        return name
+          .split(/[\s_+\-]+/)
+          .map((w) => w[0])
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+      }
+
+      function renderAbout() {
+        $("#aboutBio").textContent = CONFIG.bio;
+        $("#skillRow").innerHTML = CONFIG.skills
+          .map(
+            (s) =>
+              `<span class="text-[11px] font-bold px-3 py-1.5 border border-white/20 text-bone/85 hover:border-acid hover:text-acid transition-colors cursor-default">${s}</span>`,
+          )
+          .join("");
+        $("#historyList").innerHTML = CONFIG.history
+          .map(
+            (h) => `
+    <div class="px-5 py-4 hover:bg-white/[.04] transition-colors">
+      <div class="text-[10px] tracking-[.3em] text-acid">${h.period}</div>
+      <div class="font-bold mt-0.5">${h.title}</div>
+      <div class="text-xs text-bone/60 mt-1 leading-relaxed">${h.desc}</div>
+    </div>`,
+          )
+          .join("");
+        $("#historyRowMobile").innerHTML = CONFIG.history
+          .map(
+            (h) => `
+    <div class="shrink-0 w-56 border border-white/15 bg-white/[.03] p-3">
+      <div class="text-[10px] tracking-[.3em] text-acid">${h.period}</div>
+      <div class="font-bold text-sm mt-0.5">${h.title}</div>
+      <div class="text-[11px] text-bone/60 mt-1 leading-relaxed">${h.desc}</div>
+    </div>`,
+          )
+          .join("");
+        $("#statAddons").textContent = allAddons().length;
+        $("#statProjects").textContent = allAddons().length + 1;
+      }
+
+      function renderContacts() {
+        $("#contactList").innerHTML =
+          CONFIG.contacts
+            .map(
+              (c, i) => `
+    <div class="card border border-white/15 bg-white/[.03] p-4 flex items-center gap-4">
+      <div class="text-[10px] font-bold tracking-[.2em] text-smoke w-16 shrink-0">0${i + 1}<br /><span class="text-acid">${c.jp}</span></div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2">
+          <span class="font-bold tracking-[.15em]">${c.label}</span>
+          <span class="text-[10px] text-smoke tracking-widest">${c.sub}</span>
+        </div>
+        <a href="${c.href}" target="_blank" rel="noopener" class="block truncate text-sm text-bone/80 hover:text-acid transition-colors">${c.value} ↗</a>
+      </div>
+      <button data-copy="${c.value}" class="shrink-0 text-[10px] font-bold tracking-[.2em] px-3 py-2 border border-white/25 hover:border-acid hover:text-acid transition-colors">COPY</button>
+    </div>`,
+            )
+            .join("") +
+          `
+    <div class="border border-acid/40 bg-acid/[.06] p-4 flex items-center gap-4">
+      <div class="flex-1">
+        <div class="font-bold tracking-[.15em] text-acid">OPEN FOR WORK <span class="font-gothic text-xs">— 依頼受付中</span></div>
+        <div class="text-xs text-bone/70 mt-0.5">Include: project type / version / deadline. I'll reply within 24h.</div>
+      </div>
+      <a href="${CONFIG.contacts[1].href}" class="shrink-0 px-5 py-2.5 bg-acid text-ink text-[11px] font-bold tracking-[.2em] hover:bg-bone transition-colors">EMAIL ME →</a>
+    </div>`;
+        $$("#contactList [data-copy]").forEach((b) =>
+          b.addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(b.dataset.copy);
+            } catch {}
+            const old = b.textContent;
+            b.textContent = "COPIED ✓";
+            b.classList.add("text-acid", "border-acid");
+            setTimeout(() => {
+              b.textContent = old;
+              b.classList.remove("text-acid", "border-acid");
+            }, 1200);
+          }),
+        );
+      }
+
+      function studios() {
+        return ["ALL", ...new Set(allAddons().map((a) => a.studio))];
+      }
+
+      function renderPills() {
+        $("#studioPills").innerHTML = studios()
+          .map(
+            (s) =>
+              `<button data-studio="${s}" class="pill shrink-0 text-[11px] font-bold tracking-[.15em] px-4 py-1.5 border border-white/20 text-bone/70 hover:border-bone transition-colors ${s === activeStudio ? "active" : ""}">${s === "ALL" ? "ALL — 全部" : s.toUpperCase()}</button>`,
+          )
+          .join("");
+        $$("#studioPills .pill").forEach((p) =>
+          p.addEventListener("click", () => {
+            activeStudio = p.dataset.studio;
+            addonPage = 1;
+            renderPills();
+            renderAddons();
+          }),
+        );
+      }
+
+      let addonPage = 1,
+        addonPageSize = 6;
+      function gridCols() {
+        const n = getComputedStyle($("#addonGrid"))
+          .gridTemplateColumns.split(" ")
+          .filter(Boolean).length;
+        return Math.max(1, n || 1);
+      }
+      function defaultPageSize() {
+        const c = gridCols();
+        return c === 1 ? 2 : c * 2;
+      }
+
+      function addonCard(a, i) {
+        return `
+    <a href="${a.link}" ${a.link.startsWith("http") ? 'target="_blank" rel="noopener"' : ""} class="card group border border-white/15 bg-white/[.03] flex flex-row sm:flex-col overflow-hidden h-full min-h-0 min-w-0">
+      <div class="thumb-pattern-${i % 6} relative w-[34%] max-w-[150px] self-stretch sm:self-auto sm:w-auto sm:max-w-none sm:flex-1 sm:min-h-[64px] md:min-h-[110px] flex items-center justify-center sm:justify-between px-2 sm:px-4 overflow-hidden shrink-0">
+        <span class="text-2xl sm:text-4xl font-black text-bone/90">${initials(a.name)}</span>
+        <span class="hidden sm:block font-serifjp text-2xl text-bone/25">${a.name[0] || "空"}</span>
+        <span class="hidden sm:block absolute bottom-2 left-3 text-[9px] font-bold tracking-[.25em] text-acid">${String(i + 1).padStart(2, "0")} — ${a.studio.toUpperCase()}</span>
+        ${a.img ? `<img src="${a.img}" alt="" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-contain" loading="lazy" onload="this.style.opacity=1" style="opacity:0;transition:opacity .5s" onerror="this.remove()" />` : ""}
+      </div>
+      <div class="p-3 md:p-3.5 flex-1 flex flex-col min-h-0 min-w-0">
+        <div class="flex items-start justify-between gap-2">
+          <h3 class="font-bold leading-tight min-w-0 break-words text-[15px] md:text-base clamp2">${a.name}</h3>
+          <span class="card-arrow shrink-0 w-7 h-7 grid place-items-center border border-white/25 text-sm">↗</span>
+        </div>
+        ${
+          a.rating === undefined
+            ? ""
+            : a.rating
+              ? `<div class="mt-1 flex items-center gap-1.5 text-[11px]"><span class="text-acid font-bold">★ ${a.rating.avg.toFixed(1)}</span><span class="text-smoke">(${Number(a.rating.count).toLocaleString("en-US")} rating${a.rating.count === 1 ? "" : "s"})</span></div>`
+              : `<div class="mt-1 text-[10px] tracking-[.25em] text-smoke">☆ UNRATED — NEW</div>`
+        }
+        <p class="addon-desc text-[11px] md:text-xs text-bone/60 mt-1 leading-relaxed flex-1 min-h-0">${a.desc}</p>
+        <div class="addon-tags mt-2.5 flex flex-wrap gap-1.5 overflow-hidden">
+          <span class="text-[9px] font-bold tracking-[.15em] px-2 py-0.5 bg-white/10 text-bone/80">${a.studio.toUpperCase()}</span>
+          ${(a.tags || []).map((t, k) => `<span class="${k > 0 ? "hidden sm:inline " : ""}text-[9px] font-bold tracking-[.15em] px-2 py-0.5 border border-white/15 text-smoke">${t.toUpperCase()}</span>`).join("")}
+        </div>
+      </div>
+    </a>`;
+      }
+
+      function renderSkeletons() {
+        const n = defaultPageSize();
+        $("#addonGrid").style.gridTemplateRows =
+          `repeat(${Math.max(1, Math.ceil(n / gridCols()))}, minmax(0, 1fr))`;
+        $("#addonGrid").innerHTML = Array.from(
+          { length: n },
+          () => `
+    <div class="border border-white/10 bg-white/[.02] flex flex-row sm:flex-col overflow-hidden h-full">
+      <div class="skeleton w-[34%] max-w-[150px] self-stretch sm:self-auto sm:w-auto sm:max-w-none sm:flex-1 sm:min-h-[64px] md:min-h-[110px] shrink-0"></div>
+      <div class="p-3 md:p-3.5 flex-1 flex flex-col gap-2 min-w-0">
+        <div class="skeleton h-4 w-3/4"></div>
+        <div class="skeleton h-3 w-1/3"></div>
+        <div class="skeleton h-3 w-full"></div>
+        <div class="skeleton h-3 w-5/6"></div>
+      </div>
+    </div>`,
+        ).join("");
+        $("#addonPager").innerHTML =
+          `<span class="text-[11px] tracking-[.25em] text-smoke animate-pulse">接続中 — CONNECTING…</span>`;
+      }
+
+      function renderAddons() {
+        const q = ($("#addonSearch").value || "").trim().toLowerCase();
+        const filtered = allAddons().filter(
+          (a) =>
+            (activeStudio === "ALL" || a.studio === activeStudio) &&
+            (!q ||
+              (a.name + " " + a.studio + " " + (a.tags || []).join(" "))
+                .toLowerCase()
+                .includes(q)),
+        );
+        $("#addonCount").textContent =
+          `${String(filtered.length).padStart(2, "0")} / ${String(allAddons().length).padStart(2, "0")}`;
+        const grid = $("#addonGrid");
+        if (!filtered.length) {
+          grid.style.gridTemplateRows = "";
+          grid.innerHTML = `<div class="col-span-full border border-dashed border-white/20 p-10 text-center text-smoke">
+      <div class="text-3xl font-black text-white/15 mb-2">該当なし</div>
+      No addons match “${q}”. Try another keyword or studio.
+    </div>`;
+          $("#addonPager").innerHTML = "";
+          return;
+        }
+        const paint = (size) => {
+          const pages = Math.max(1, Math.ceil(filtered.length / size));
+          addonPage = Math.min(Math.max(1, addonPage), pages);
+          const list = filtered.slice((addonPage - 1) * size, addonPage * size);
+
+          grid.style.gridTemplateRows = `repeat(${Math.max(1, Math.ceil(list.length / gridCols()))}, minmax(0, 1fr))`;
+          grid.innerHTML = list
+            .map((a, k) => addonCard(a, (addonPage - 1) * size + k))
+            .join("");
+          return list;
+        };
+        let list = paint(addonPageSize);
+
+        let guard = 0;
+        while (
+          grid.scrollHeight > grid.clientHeight + 4 &&
+          list.length > gridCols() &&
+          guard++ < 8
+        ) {
+          addonPageSize = list.length - gridCols();
+          list = paint(addonPageSize);
+        }
+        renderPager(filtered.length);
+      }
+
+      function renderPager(total) {
+        const pages = Math.max(1, Math.ceil(total / addonPageSize));
+        const pager = $("#addonPager");
+        if (pages <= 1) {
+          pager.innerHTML = `<span class="text-[11px] tracking-[.25em] text-smoke">全${total}件 — ALL SHOWN</span>`;
+          return;
+        }
+        const cls =
+          "text-[11px] font-bold px-2 sm:px-3 py-1.5 border transition-colors ";
+        let nums = "";
+        let last = 0;
+        const win = [1, pages, addonPage - 1, addonPage, addonPage + 1]
+          .filter((v, i, a) => v >= 1 && v <= pages && a.indexOf(v) === i)
+          .sort((a, b) => a - b);
+        for (const p of win) {
+          if (p - last > 1) nums += `<span class="text-smoke px-0.5">…</span>`;
+          nums += `<button data-page="${p}" ${p === addonPage ? "disabled" : ""} class="${cls}${p === addonPage ? "bg-bone text-ink border-bone" : "border-white/20 text-bone/70 hover:border-bone"}">${String(p).padStart(2, "0")}</button>`;
+          last = p;
+        }
+        pager.innerHTML =
+          `<button data-page="${addonPage - 1}" ${addonPage === 1 ? "disabled" : ""} class="${cls}${addonPage === 1 ? "border-white/10 text-smoke/40" : "border-white/20 text-bone/80 hover:border-acid hover:text-acid"}">← PREV</button>` +
+          nums +
+          `<button data-page="${addonPage + 1}" ${addonPage === pages ? "disabled" : ""} class="${cls}${addonPage === pages ? "border-white/10 text-smoke/40" : "border-white/20 text-bone/80 hover:border-acid hover:text-acid"}">NEXT →</button>` +
+          `<span class="text-[11px] tracking-[.2em] text-smoke ml-1">${String(addonPage).padStart(2, "0")} / ${String(pages).padStart(2, "0")}</span>`;
+      }
+      $("#addonPager").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-page]");
+        if (!b || b.disabled) return;
+        addonPage = +b.dataset.page;
+        renderAddons();
+      });
+      let rzT;
+      window.addEventListener("resize", () => {
+        clearTimeout(rzT);
+        rzT = setTimeout(() => {
+          addonPageSize = defaultPageSize();
+          renderAddons();
+          otherPageSize = defaultOtherSize();
+          renderOther();
+        }, 200);
+      });
+
+      const OTHER_REPOS = [
+        "respectZ/mcsekai-v2",
+        "rockide/language-server",
+        "rockide/vanilla",
+        "rockide/tree-sitter-mcfunction",
+        "rockide/tree-sitter-lang",
+        "rockide/rockide-vscode",
+        "rockide/rockide-zed",
+      ];
+      const LANG_COLORS = {
+        TypeScript: "#3178c6",
+        JavaScript: "#f1e05a",
+        Rust: "#dea584",
+        Python: "#3572A5",
+        Go: "#00ADD8",
+        Java: "#b07219",
+        "C++": "#f34b7d",
+        C: "#555759",
+        HTML: "#e34c26",
+        CSS: "#563d7c",
+        Shell: "#89e051",
+        Lua: "#000080",
+        Dockerfile: "#384d54",
+      };
+      let OTHER_ITEMS = [],
+        otherPage = 1,
+        otherPageSize = 4;
+      function otherCols() {
+        const n = getComputedStyle($("#otherGrid"))
+          .gridTemplateColumns.split(" ")
+          .filter(Boolean).length;
+        return Math.max(1, n || 1);
+      }
+      function defaultOtherSize() {
+        return otherCols() === 1 ? 3 : 4;
+      }
+      function otherTile(r) {
+        return `
+    <a href="${r.url}" target="_blank" rel="noopener" class="card group border border-white/15 bg-white/[.03] p-3 md:p-3.5 flex flex-col overflow-hidden h-full min-h-0 min-w-0">
+      <div class="flex items-start justify-between gap-2">
+        <div class="font-bold text-[15px] md:text-base leading-tight clamp2 min-w-0 break-words">${r.name}</div>
+        <span class="card-arrow shrink-0 w-7 h-7 grid place-items-center border border-white/25 text-sm">↗</span>
+      </div>
+      <p class="addon-desc text-[11px] md:text-xs text-bone/60 mt-1 leading-relaxed flex-1 min-h-0">${r.desc || "GitHub repository"}</p>
+      <div class="mt-2 flex items-center gap-3 text-[11px] text-smoke shrink-0 overflow-hidden">
+        ${r.lang ? `<span class="shrink-0"><span style="color:${LANG_COLORS[r.lang] || "#8a8a90"}">●</span> ${r.lang.toUpperCase()}</span>` : ""}
+        ${r.stars != null ? `<span class="shrink-0">★ ${r.stars}</span>` : ""}
+        <span class="tracking-[.2em]">GITHUB</span>
+      </div>
+    </a>`;
+      }
+      function renderOtherSkeletons() {
+        const n = defaultOtherSize();
+        const grid = $("#otherGrid");
+        grid.style.gridTemplateRows = `repeat(${Math.max(1, Math.ceil(n / otherCols()))}, minmax(0, 1fr))`;
+        grid.innerHTML = Array.from(
+          { length: n },
+          () => `
+    <div class="border border-white/10 bg-white/[.02] p-3 md:p-3.5 flex flex-col gap-2 overflow-hidden h-full">
+      <div class="skeleton h-4 w-2/3"></div>
+      <div class="skeleton h-3 w-full"></div>
+      <div class="skeleton h-3 w-1/3"></div>
+    </div>`,
+        ).join("");
+        $("#otherPager").innerHTML =
+          `<span class="text-[11px] tracking-[.25em] text-smoke animate-pulse">接続中 — CONNECTING…</span>`;
+      }
+      async function loadOther() {
+        renderOtherSkeletons();
+        fetch("https://api.github.com/repos/respectZ/blue-archive-viewer", {
+          headers: { Accept: "application/vnd.github+json" },
+        })
+          .then((r) => (r.ok ? r.json() : null))
+          .then((j) => {
+            const el = $("#flagshipStars");
+            if (el && j) el.textContent = `★ ${j.stargazers_count}`;
+          })
+          .catch(() => {});
+        try {
+          OTHER_ITEMS = await Promise.all(
+            OTHER_REPOS.map(async (full) => {
+              const r = await fetch(`https://api.github.com/repos/${full}`, {
+                headers: { Accept: "application/vnd.github+json" },
+              });
+              if (!r.ok) throw new Error(full);
+              const j = await r.json();
+              return {
+                name: j.full_name,
+                desc: j.description || "",
+                lang: j.language || "",
+                stars: j.stargazers_count ?? null,
+                url: j.html_url,
+              };
+            }),
+          );
+        } catch {
+          OTHER_ITEMS = OTHER_REPOS.map((full) => ({
+            name: full,
+            desc: "",
+            lang: "",
+            stars: null,
+            url: `https://github.com/${full}`,
+          }));
+        }
+        otherPage = 1;
+        otherPageSize = defaultOtherSize();
+        renderOther();
+      }
+      function renderOther() {
+        const grid = $("#otherGrid"),
+          pager = $("#otherPager");
+        if (!OTHER_ITEMS.length) {
+          grid.innerHTML = "";
+          pager.innerHTML = "";
+          return;
+        }
+        const pages = Math.max(
+          1,
+          Math.ceil(OTHER_ITEMS.length / otherPageSize),
+        );
+        otherPage = Math.min(Math.max(1, otherPage), pages);
+        const list = OTHER_ITEMS.slice(
+          (otherPage - 1) * otherPageSize,
+          otherPage * otherPageSize,
+        );
+        grid.style.gridTemplateRows = `repeat(${Math.max(1, Math.ceil(list.length / otherCols()))}, minmax(0, 1fr))`;
+        grid.innerHTML = list.map(otherTile).join("");
+        const cls =
+          "text-[11px] font-bold px-2 sm:px-3 py-1.5 border transition-colors ";
+        const btn = (p, label, off) =>
+          `<button data-opage="${p}" ${off ? "disabled" : ""} class="${cls}${off ? "border-white/10 text-smoke/40" : "border-white/20 text-bone/80 hover:border-acid hover:text-acid"}">${label}</button>`;
+        pager.innerHTML =
+          pages <= 1
+            ? `<span class="text-[11px] tracking-[.25em] text-smoke">全${OTHER_ITEMS.length}件 — ALL SHOWN</span>`
+            : btn(otherPage - 1, "← PREV", otherPage === 1) +
+              btn(otherPage + 1, "NEXT →", otherPage === pages) +
+              `<span class="text-[11px] tracking-[.2em] text-smoke ml-1">${String(otherPage).padStart(2, "0")} / ${String(pages).padStart(2, "0")}</span>`;
+      }
+      $("#otherPager").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-opage]");
+        if (!b || b.disabled) return;
+        otherPage = +b.dataset.opage;
+        renderOther();
+      });
+
+      function go(name, push = true) {
+        if (!SECTIONS[name]) name = "about";
+        $$(".panel").forEach((p) => {
+          const on = p.dataset.panel === name;
+          p.classList.toggle("active", on);
+          if (on) {
+            const g = $(".glitch", p);
+            if (g) {
+              g.style.animation = "none";
+              void g.offsetWidth;
+              g.style.animation = "";
+            }
+          }
+        });
+        $$("[data-nav]").forEach((b) => {
+          const on = b.dataset.nav === name;
+          if (b.tagName === "BUTTON") b.classList.toggle("active", on);
+        });
+        $("#bgIndex").textContent = SECTIONS[name].num;
+        $("#crumb").textContent = SECTIONS[name].en;
+        $("#railSection").textContent = SECTIONS[name].jp;
+        document.title = `Svdex — ${name.toUpperCase()}`;
+        if (push && location.hash !== "#" + name)
+          history.replaceState(null, "", "#" + name);
+      }
+      $$("[data-nav]").forEach((b) =>
+        b.addEventListener("click", () => go(b.dataset.nav)),
+      );
+      window.addEventListener("hashchange", () =>
+        go(location.hash.slice(1), false),
+      );
+      document.addEventListener("keydown", (e) => {
+        const order = ["about", "addons", "other", "contact"];
+        const i = order.indexOf($(".panel.active")?.dataset.panel || "about");
+        if (e.key >= "1" && e.key <= "4") go(order[+e.key - 1]);
+        if (e.key === "ArrowRight") go(order[(i + 1) % 4]);
+        if (e.key === "ArrowLeft") go(order[(i + 3) % 4]);
+      });
+      $("#addonSearch").addEventListener("input", () => {
+        addonPage = 1;
+        renderAddons();
+      });
+
+      function tickClock() {
+        const t = new Date().toLocaleTimeString("en-GB", {
+          timeZone: "Asia/Jakarta",
+          hour12: false,
+        });
+        $("#clock").textContent = t;
+        const a = $("#aboutClock");
+        if (a) a.textContent = t.slice(0, 5);
+      }
+      setInterval(tickClock, 1000);
+      tickClock();
+      renderAbout();
+      renderContacts();
+      loadMarketplace();
+      loadOther();
+      go(location.hash.slice(1) || "about", false);
+      window.addEventListener("load", () =>
+        setTimeout(() => $("#loader").classList.add("done"), 700),
+      );
+      setTimeout(() => $("#loader").classList.add("done"), 2200);
+    </script>
+  </body>
 </html>
