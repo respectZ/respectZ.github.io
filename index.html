@@ -21,13 +21,7 @@
               smoke: "#8a8a90",
             },
             fontFamily: {
-              grotesk: [
-                '"Space Grotesk"',
-                '"Zen Kaku Gothic New"',
-                "sans-serif",
-              ],
-              serifjp: ['"Noto Serif JP"', "serif"],
-              gothic: ['"Zen Kaku Gothic New"', "sans-serif"],
+              grotesk: ['"Space Grotesk"', "sans-serif"],
             },
           },
         },
@@ -36,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Serif+JP:wght@600;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <style>
@@ -47,7 +41,7 @@
         background: #0a0a0b;
       }
       body {
-        font-family: "Space Grotesk", "Zen Kaku Gothic New", sans-serif;
+        font-family: "Space Grotesk", sans-serif;
       }
       ::selection {
         background: #e4ff3f;
@@ -307,8 +301,8 @@
       id="loader"
       class="fixed inset-0 z-[100] bg-ink flex flex-col items-center justify-center gap-4"
     >
-      <div class="font-gothic text-xs tracking-[.5em] text-smoke">
-        読み込み中 — LOADING
+      <div class="text-xs tracking-[.5em] text-smoke">
+        LOADING
       </div>
       <div class="text-3xl md:text-5xl font-bold tracking-tight">
         SVD<span class="text-acid">E</span>X
@@ -327,17 +321,12 @@
     >
       01
     </div>
-    <div
-      class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[22vw] font-serifjp font-black text-white/[.025] whitespace-nowrap pointer-events-none z-0 select-none"
-    >
-      作品集
-    </div>
 
     <aside
       class="hidden lg:flex fixed left-0 top-0 bottom-0 w-12 z-40 border-r border-white/10 flex-col items-center justify-between py-6 bg-ink/80 backdrop-blur"
     >
-      <span class="vertical font-gothic text-[11px] text-smoke"
-        >ポートフォリオ — PORTFOLIO</span
+      <span class="vertical text-[11px] text-smoke"
+        >PORTFOLIO</span
       >
       <span class="w-px flex-1 bg-white/10 my-4"></span>
       <span class="vertical text-[11px] tracking-[.35em] text-bone/70"
@@ -347,8 +336,8 @@
     <aside
       class="hidden lg:flex fixed right-0 top-0 bottom-0 w-12 z-40 border-l border-white/10 flex-col items-center justify-between py-6 bg-ink/80 backdrop-blur"
     >
-      <span id="railSection" class="vertical font-gothic text-[11px] text-acid"
-        >自己紹介 — ABOUT</span
+      <span id="railSection" class="vertical text-[11px] text-acid"
+        >ABOUT</span
       >
       <span class="w-px flex-1 bg-white/10 my-4"></span>
     </aside>
@@ -365,8 +354,8 @@
           </div>
           <div class="leading-none">
             <div class="font-bold tracking-tight text-lg">Svdex</div>
-            <div class="font-gothic text-[10px] tracking-[.3em] text-smoke">
-              マインクラフト — WEB — 創作
+            <div class="text-[10px] tracking-[.3em] text-smoke">
+              MINECRAFT — WEB
             </div>
           </div>
         </a>
@@ -407,8 +396,8 @@
       <div class="shrink-0 px-4 md:px-8 mt-3 md:mt-4 flex items-center gap-3">
         <span
           id="crumb"
-          class="font-gothic text-[11px] tracking-[.3em] text-acid"
-          >01 — 自己紹介 / STATEMENT</span
+          class="text-[11px] tracking-[.3em] text-acid"
+          >01 — ABOUT / STATEMENT</span
         >
         <span class="flex-1 h-px bg-white/10"></span>
       </div>
@@ -423,15 +412,14 @@
           >
             <div class="min-h-0 flex flex-col justify-center">
               <p
-                class="font-gothic text-[11px] tracking-[.4em] text-smoke mb-2"
+                class="text-[11px] tracking-[.4em] text-smoke mb-2"
               >
-                人工的でも、創造は無限だ — STATEMENT
+                STATEMENT
               </p>
               <h1
                 class="font-black leading-[.95] tracking-tight text-[11vw] md:text-[4.6vw]"
               >
-                I BUILD<br />WORLDS<span class="text-acid">.</span><br />
-                <span class="font-serifjp font-black">遊びを、拡張せよ。</span>
+                I BUILD<br />WORLDS<span class="text-acid">.</span>
               </h1>
               <p
                 id="aboutBio"
@@ -456,7 +444,7 @@
               </div>
               <div class="mt-5">
                 <div class="text-[10px] tracking-[.3em] text-smoke mb-2">
-                  SKILLS — 技術
+                  SKILLS
                 </div>
                 <div id="skillRow" class="flex flex-wrap gap-2"></div>
               </div>
@@ -482,9 +470,8 @@
                 class="px-5 py-3 border-b border-white/10 flex items-center justify-between"
               >
                 <span class="text-[11px] tracking-[.3em] text-smoke"
-                  >WORK HISTORY — 経歴</span
+                  >WORK HISTORY</span
                 >
-                <span class="text-[11px] text-acid">履歴書</span>
               </div>
               <div
                 id="historyList"
@@ -529,7 +516,7 @@
               <div>
                 <h2 class="text-3xl md:text-5xl font-black tracking-tight">
                   MINECRAFT<br class="md:hidden" />
-                  ADDONS <span class="font-serifjp">作品</span>
+                  ADDONS
                 </h2>
                 <p class="text-xs md:text-sm text-bone/60 mt-1">
                   Filter by studio, search by name.
@@ -544,7 +531,7 @@
                   <input
                     id="addonSearch"
                     type="text"
-                    placeholder="SEARCH — 検索…"
+                    placeholder="SEARCH…"
                     class="bg-transparent text-sm w-full placeholder:text-smoke/70"
                   />
                 </div>
@@ -574,7 +561,7 @@
         <section data-panel="other" class="panel">
           <div class="glitch h-full min-h-0 flex flex-col justify-start pt-1">
             <h2 class="text-3xl md:text-5xl font-black tracking-tight shrink-0">
-              OTHER PROJECTS <span class="font-serifjp">その他</span>
+              OTHER PROJECTS
             </h2>
             <p class="text-xs md:text-sm text-bone/60 mt-1 mb-4 shrink-0">
               Web experiments & tools.
@@ -647,16 +634,13 @@
             class="glitch h-full min-h-0 grid md:grid-cols-[1fr_.9fr] gap-4 md:gap-10 items-center"
           >
             <div>
-              <p class="font-gothic text-[11px] tracking-[.4em] text-smoke">
-                連絡先 — GET IN TOUCH
+              <p class="text-[11px] tracking-[.4em] text-smoke">
+                GET IN TOUCH
               </p>
               <h2
                 class="font-black tracking-tight leading-[.95] text-[12vw] md:text-[4.2vw] mt-1"
               >
-                LET'S<br />CREATE<span class="text-acid">.</span><br /><span
-                  class="font-serifjp"
-                  >話そう。</span
-                >
+                LET'S<br />CREATE<span class="text-acid">.</span>
               </h2>
               <p class="text-sm text-bone/70 mt-3 max-w-md leading-relaxed">
                 Addon collabs, commissions, bug reports, or just to say hi — the
@@ -666,7 +650,7 @@
                 class="mt-4 flex items-center gap-2 text-[11px] tracking-[.25em] text-smoke"
               >
                 <span class="w-2 h-2 rounded-full bg-acid animate-pulse"></span
-                >AVG. REPLY — 24H以内
+                >AVG. REPLY — WITHIN 24H
               </div>
             </div>
             <div
@@ -726,21 +710,18 @@
             sub: "code / releases",
             value: "github.com/respectZ",
             href: "https://github.com/respectZ",
-            jp: "コード",
           },
           {
             label: "EMAIL",
             sub: "fastest — commissions",
             value: "renixiel@gmail.com",
             href: "mailto:renixiel@gmail.com",
-            jp: "メール",
           },
           {
             label: "DISCORD",
             sub: "chat / collab",
             value: "@svdex",
             href: "https://discord.com/users/svdex",
-            jp: "雑談",
           },
         ],
       };
@@ -906,7 +887,7 @@
         if (!allAddons().length) {
           $("#addonGrid").innerHTML =
             `<div class="col-span-full border border-dashed border-white/20 p-10 text-center text-smoke">
-      <div class="text-3xl font-black text-white/15 mb-2">接続失敗</div>
+      <div class="text-3xl font-black text-white/15 mb-2">CONNECTION FAILED</div>
       Couldn't reach PlayFab. Check your connection and reopen this tab.
     </div>`;
           $("#addonPager").innerHTML = "";
@@ -920,19 +901,19 @@
       const SECTIONS = {
         about: {
           num: "01",
-          jp: "自己紹介 — ABOUT",
-          en: "01 — 自己紹介 / STATEMENT",
+          rail: "ABOUT",
+          crumb: "01 — ABOUT / STATEMENT",
         },
-        addons: { num: "02", jp: "作品 — ADDONS", en: "02 — 作品 / PRODUCT" },
+        addons: { num: "02", rail: "ADDONS", crumb: "02 — ADDONS / PRODUCT" },
         other: {
           num: "03",
-          jp: "その他 — OTHER",
-          en: "03 — その他 / CONTENTS",
+          rail: "OTHER",
+          crumb: "03 — OTHER / CONTENTS",
         },
         contact: {
           num: "04",
-          jp: "連絡先 — CONTACT",
-          en: "04 — 連絡先 / CONTACT",
+          rail: "CONTACT",
+          crumb: "04 — CONTACT",
         },
       };
       let activeStudio = "ALL";
@@ -984,7 +965,7 @@
             .map(
               (c, i) => `
     <div class="card border border-white/15 bg-white/[.03] p-4 flex items-center gap-4">
-      <div class="text-[10px] font-bold tracking-[.2em] text-smoke w-16 shrink-0">0${i + 1}<br /><span class="text-acid">${c.jp}</span></div>
+      <div class="text-[10px] font-bold tracking-[.2em] text-smoke w-8 shrink-0">0${i + 1}</div>
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-2">
           <span class="font-bold tracking-[.15em]">${c.label}</span>
@@ -999,7 +980,7 @@
           `
     <div class="border border-acid/40 bg-acid/[.06] p-4 flex items-center gap-4">
       <div class="flex-1">
-        <div class="font-bold tracking-[.15em] text-acid">OPEN FOR WORK <span class="font-gothic text-xs">— 依頼受付中</span></div>
+        <div class="font-bold tracking-[.15em] text-acid">OPEN FOR WORK</div>
         <div class="text-xs text-bone/70 mt-0.5">Include: project type / version / deadline. I'll reply within 24h.</div>
       </div>
       <a href="${CONFIG.contacts[1].href}" class="shrink-0 px-5 py-2.5 bg-acid text-ink text-[11px] font-bold tracking-[.2em] hover:bg-bone transition-colors">EMAIL ME →</a>
@@ -1028,7 +1009,7 @@
         $("#studioPills").innerHTML = studios()
           .map(
             (s) =>
-              `<button data-studio="${s}" class="pill shrink-0 text-[11px] font-bold tracking-[.15em] px-4 py-1.5 border border-white/20 text-bone/70 hover:border-bone transition-colors ${s === activeStudio ? "active" : ""}">${s === "ALL" ? "ALL — 全部" : s.toUpperCase()}</button>`,
+              `<button data-studio="${s}" class="pill shrink-0 text-[11px] font-bold tracking-[.15em] px-4 py-1.5 border border-white/20 text-bone/70 hover:border-bone transition-colors ${s === activeStudio ? "active" : ""}">${s.toUpperCase()}</button>`,
           )
           .join("");
         $$("#studioPills .pill").forEach((p) =>
@@ -1059,7 +1040,7 @@
     <a href="${a.link}" ${a.link.startsWith("http") ? 'target="_blank" rel="noopener"' : ""} class="card group border border-white/15 bg-white/[.03] flex flex-row sm:flex-col overflow-hidden h-full min-h-0 min-w-0">
       <div class="thumb-pattern-${i % 6} relative w-[34%] max-w-[150px] self-stretch sm:self-auto sm:w-auto sm:max-w-none sm:flex-1 sm:min-h-[64px] md:min-h-[110px] flex items-center justify-center sm:justify-between px-2 sm:px-4 overflow-hidden shrink-0">
         <span class="text-2xl sm:text-4xl font-black text-bone/90">${initials(a.name)}</span>
-        <span class="hidden sm:block font-serifjp text-2xl text-bone/25">${a.name[0] || "空"}</span>
+        <span class="hidden sm:block text-2xl text-bone/25">${a.name[0] || "?"}</span>
         <span class="hidden sm:block absolute bottom-2 left-3 text-[9px] font-bold tracking-[.25em] text-acid">${String(i + 1).padStart(2, "0")} — ${a.studio.toUpperCase()}</span>
         ${a.img ? `<img src="${a.img}" alt="" referrerpolicy="no-referrer" class="absolute inset-0 w-full h-full object-contain" loading="lazy" onload="this.style.opacity=1" style="opacity:0;transition:opacity .5s" onerror="this.remove()" />` : ""}
       </div>
@@ -1102,7 +1083,7 @@
     </div>`,
         ).join("");
         $("#addonPager").innerHTML =
-          `<span class="text-[11px] tracking-[.25em] text-smoke animate-pulse">接続中 — CONNECTING…</span>`;
+          `<span class="text-[11px] tracking-[.25em] text-smoke animate-pulse">CONNECTING…</span>`;
       }
 
       function renderAddons() {
@@ -1121,7 +1102,7 @@
         if (!filtered.length) {
           grid.style.gridTemplateRows = "";
           grid.innerHTML = `<div class="col-span-full border border-dashed border-white/20 p-10 text-center text-smoke">
-      <div class="text-3xl font-black text-white/15 mb-2">該当なし</div>
+      <div class="text-3xl font-black text-white/15 mb-2">NO MATCHES</div>
       No addons match “${q}”. Try another keyword or studio.
     </div>`;
           $("#addonPager").innerHTML = "";
@@ -1156,7 +1137,7 @@
         const pages = Math.max(1, Math.ceil(total / addonPageSize));
         const pager = $("#addonPager");
         if (pages <= 1) {
-          pager.innerHTML = `<span class="text-[11px] tracking-[.25em] text-smoke">全${total}件 — ALL SHOWN</span>`;
+          pager.innerHTML = `<span class="text-[11px] tracking-[.25em] text-smoke">${total} — ALL SHOWN</span>`;
           return;
         }
         const cls =
@@ -1260,7 +1241,7 @@
     </div>`,
         ).join("");
         $("#otherPager").innerHTML =
-          `<span class="text-[11px] tracking-[.25em] text-smoke animate-pulse">接続中 — CONNECTING…</span>`;
+          `<span class="text-[11px] tracking-[.25em] text-smoke animate-pulse">CONNECTING…</span>`;
       }
       async function loadOther() {
         renderOtherSkeletons();
@@ -1328,7 +1309,7 @@
           `<button data-opage="${p}" ${off ? "disabled" : ""} class="${cls}${off ? "border-white/10 text-smoke/40" : "border-white/20 text-bone/80 hover:border-acid hover:text-acid"}">${label}</button>`;
         pager.innerHTML =
           pages <= 1
-            ? `<span class="text-[11px] tracking-[.25em] text-smoke">全${OTHER_ITEMS.length}件 — ALL SHOWN</span>`
+            ? `<span class="text-[11px] tracking-[.25em] text-smoke">${OTHER_ITEMS.length} — ALL SHOWN</span>`
             : btn(otherPage - 1, "← PREV", otherPage === 1) +
               btn(otherPage + 1, "NEXT →", otherPage === pages) +
               `<span class="text-[11px] tracking-[.2em] text-smoke ml-1">${String(otherPage).padStart(2, "0")} / ${String(pages).padStart(2, "0")}</span>`;
@@ -1359,8 +1340,8 @@
           if (b.tagName === "BUTTON") b.classList.toggle("active", on);
         });
         $("#bgIndex").textContent = SECTIONS[name].num;
-        $("#crumb").textContent = SECTIONS[name].en;
-        $("#railSection").textContent = SECTIONS[name].jp;
+        $("#crumb").textContent = SECTIONS[name].crumb;
+        $("#railSection").textContent = SECTIONS[name].rail;
         document.title = `Svdex — ${name.toUpperCase()}`;
         if (push && location.hash !== "#" + name)
           history.replaceState(null, "", "#" + name);
