@@ -301,9 +301,7 @@
       id="loader"
       class="fixed inset-0 z-[100] bg-ink flex flex-col items-center justify-center gap-4"
     >
-      <div class="text-xs tracking-[.5em] text-smoke">
-        LOADING
-      </div>
+      <div class="text-xs tracking-[.5em] text-smoke">LOADING</div>
       <div class="text-3xl md:text-5xl font-bold tracking-tight">
         SVD<span class="text-acid">E</span>X
       </div>
@@ -325,9 +323,7 @@
     <aside
       class="hidden lg:flex fixed left-0 top-0 bottom-0 w-12 z-40 border-r border-white/10 flex-col items-center justify-between py-6 bg-ink/80 backdrop-blur"
     >
-      <span class="vertical text-[11px] text-smoke"
-        >PORTFOLIO</span
-      >
+      <span class="vertical text-[11px] text-smoke">PORTFOLIO</span>
       <span class="w-px flex-1 bg-white/10 my-4"></span>
       <span class="vertical text-[11px] tracking-[.35em] text-bone/70"
         >Svdex</span
@@ -336,9 +332,7 @@
     <aside
       class="hidden lg:flex fixed right-0 top-0 bottom-0 w-12 z-40 border-l border-white/10 flex-col items-center justify-between py-6 bg-ink/80 backdrop-blur"
     >
-      <span id="railSection" class="vertical text-[11px] text-acid"
-        >ABOUT</span
-      >
+      <span id="railSection" class="vertical text-[11px] text-acid">ABOUT</span>
       <span class="w-px flex-1 bg-white/10 my-4"></span>
     </aside>
 
@@ -394,9 +388,7 @@
       </header>
 
       <div class="shrink-0 px-4 md:px-8 mt-3 md:mt-4 flex items-center gap-3">
-        <span
-          id="crumb"
-          class="text-[11px] tracking-[.3em] text-acid"
+        <span id="crumb" class="text-[11px] tracking-[.3em] text-acid"
           >01 — ABOUT / STATEMENT</span
         >
         <span class="flex-1 h-px bg-white/10"></span>
@@ -411,9 +403,7 @@
             class="glitch h-full min-h-0 grid md:grid-cols-[1.15fr_.85fr] gap-4 md:gap-8 items-stretch"
           >
             <div class="min-h-0 flex flex-col justify-center">
-              <p
-                class="text-[11px] tracking-[.4em] text-smoke mb-2"
-              >
+              <p class="text-[11px] tracking-[.4em] text-smoke mb-2">
                 STATEMENT
               </p>
               <h1
@@ -478,18 +468,12 @@
                 class="thin-scroll flex-1 min-h-0 overflow-y-auto divide-y divide-white/8"
               ></div>
               <div
-                class="px-5 py-3 border-t border-white/10 grid grid-cols-3 text-center"
+                class="px-5 py-3 border-t border-white/10 grid grid-cols-2 text-center"
               >
                 <div>
                   <div id="statAddons" class="text-2xl font-bold">–</div>
                   <div class="text-[10px] tracking-[.25em] text-smoke">
                     ADDONS
-                  </div>
-                </div>
-                <div class="border-x border-white/10">
-                  <div class="text-2xl font-bold">∞</div>
-                  <div class="text-[10px] tracking-[.25em] text-smoke">
-                    CURIOSITY
                   </div>
                 </div>
                 <div>
@@ -518,9 +502,6 @@
                   MINECRAFT<br class="md:hidden" />
                   ADDONS
                 </h2>
-                <p class="text-xs md:text-sm text-bone/60 mt-1">
-                  Filter by studio, search by name.
-                </p>
               </div>
               <div class="flex-1"></div>
               <div class="flex items-center gap-2">
@@ -634,24 +615,12 @@
             class="glitch h-full min-h-0 grid md:grid-cols-[1fr_.9fr] gap-4 md:gap-10 items-center"
           >
             <div>
-              <p class="text-[11px] tracking-[.4em] text-smoke">
-                GET IN TOUCH
-              </p>
+              <p class="text-[11px] tracking-[.4em] text-smoke">GET IN TOUCH</p>
               <h2
                 class="font-black tracking-tight leading-[.95] text-[12vw] md:text-[4.2vw] mt-1"
               >
-                LET'S<br />CREATE<span class="text-acid">.</span>
+                SOCIAL<span class="text-acid">.</span>
               </h2>
-              <p class="text-sm text-bone/70 mt-3 max-w-md leading-relaxed">
-                Addon collabs, commissions, bug reports, or just to say hi — the
-                fastest way is email or Discord. GitHub for code.
-              </p>
-              <div
-                class="mt-4 flex items-center gap-2 text-[11px] tracking-[.25em] text-smoke"
-              >
-                <span class="w-2 h-2 rounded-full bg-acid animate-pulse"></span
-                >AVG. REPLY — WITHIN 24H
-              </div>
             </div>
             <div
               id="contactList"
@@ -707,19 +676,16 @@
         contacts: [
           {
             label: "GITHUB",
-            sub: "code / releases",
             value: "github.com/respectZ",
             href: "https://github.com/respectZ",
           },
           {
             label: "EMAIL",
-            sub: "fastest — commissions",
             value: "renixiel@gmail.com",
             href: "mailto:renixiel@gmail.com",
           },
           {
             label: "DISCORD",
-            sub: "chat / collab",
             value: "@svdex",
             href: "https://discord.com/users/svdex",
           },
@@ -888,7 +854,7 @@
           $("#addonGrid").innerHTML =
             `<div class="col-span-full border border-dashed border-white/20 p-10 text-center text-smoke">
       <div class="text-3xl font-black text-white/15 mb-2">CONNECTION FAILED</div>
-      Couldn't reach PlayFab. Check your connection and reopen this tab.
+      Try again
     </div>`;
           $("#addonPager").innerHTML = "";
           return;
@@ -969,7 +935,6 @@
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-2">
           <span class="font-bold tracking-[.15em]">${c.label}</span>
-          <span class="text-[10px] text-smoke tracking-widest">${c.sub}</span>
         </div>
         <a href="${c.href}" target="_blank" rel="noopener" class="block truncate text-sm text-bone/80 hover:text-acid transition-colors">${c.value} ↗</a>
       </div>
@@ -979,10 +944,6 @@
             .join("") +
           `
     <div class="border border-acid/40 bg-acid/[.06] p-4 flex items-center gap-4">
-      <div class="flex-1">
-        <div class="font-bold tracking-[.15em] text-acid">OPEN FOR WORK</div>
-        <div class="text-xs text-bone/70 mt-0.5">Include: project type / version / deadline. I'll reply within 24h.</div>
-      </div>
       <a href="${CONFIG.contacts[1].href}" class="shrink-0 px-5 py-2.5 bg-acid text-ink text-[11px] font-bold tracking-[.2em] hover:bg-bone transition-colors">EMAIL ME →</a>
     </div>`;
         $$("#contactList [data-copy]").forEach((b) =>
